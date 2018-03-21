@@ -11,6 +11,7 @@ server:
 logging:
   level: WARN
   loggers:
+    edu.si: DEBUG
     org.trellisldp: INFO
     io.dropwizard: INFO
 
