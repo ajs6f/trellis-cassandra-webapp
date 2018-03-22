@@ -9,6 +9,8 @@
 
   <properties>
     <trellis.version>0.7.0-SNAPSHOT</trellis.version>
+    <dropwizard.version>1.3.0</dropwizard.version>
+    <log4j.version>2.1</log4j.version>
   </properties>
 
   <dependencies>
@@ -33,8 +35,35 @@
       <artifactId>trellis-cassandra</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <!-- test gear -->
+    <dependency>
+      <groupId>org.trellisldp</groupId>
+      <artifactId>trellis-test</artifactId>
+      <version>${trellis.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.dropwizard</groupId>
+      <artifactId>dropwizard-client</artifactId>
+      <version>${dropwizard.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.dropwizard</groupId>
+      <artifactId>dropwizard-testing</artifactId>
+      <version>${dropwizard.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -81,6 +110,96 @@
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>reserve-network-port</id>
+            <goals>
+              <goal>reserve-network-port</goal>
+            </goals>
+            <phase>process-sources</phase>
+            <configuration>
+              <portNames>
+                <portName>cassandra.rpcPort</portName>
+                <portName>cassandra.jmxPort</portName>
+                <portName>cassandra.storagePort</portName>
+                <portName>cassandra.stopPort</portName>
+                <portName>cassandra.nativeTransportPort</portName>
+
+                <portName>trellis.port</portName>
+                <portName>trellis.admin.port</portName>
+              </portNames>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.7.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <systemProperties>
+                <cassandra.rpcPort>${cassandra.rpcPort}</cassandra.rpcPort>
+                <cassandra.jmxPort>${cassandra.jmxPort}</cassandra.jmxPort>
+                <cassandra.storagePort>${cassandra.storagePort}</cassandra.storagePort>
+                <cassandra.stopPort>${cassandra.stopPort}</cassandra.stopPort>
+                <cassandra.nativeTransportPort>${cassandra.nativeTransportPort}</cassandra.nativeTransportPort>
+
+                <project.build.directory>${project.build.directory}</project.build.directory>
+
+                <trellis.port>${trellis.port}</trellis.port>
+                <trellis.admin.port>${trellis.admin.port}</trellis.admin.port>
+              </systemProperties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cassandra-maven-plugin</artifactId>
+        <version>3.6</version>
+        <configuration>
+          <logLevel>WARN</logLevel>
+          <startNativeTransport>true</startNativeTransport>
+          <addTestClasspath>true</addTestClasspath>
+          <!-- use a load script after resource filtering -->
+          <script>${project.build.directory}/test-classes/load.cql</script>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>start</goal>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>

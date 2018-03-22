@@ -14,13 +14,16 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.extras.codecs.jdk8.InstantCodec;
 
+import java.util.Map;
+
 public class TrellisCassandraApplication extends TrellisApplication {
 
     @Override
     protected <T extends ResourceService> T buildResourceService(IdentifierService idService,
                     MementoService mementoService, EventService notificationService) {
-        String cassandraAddress = config.getCassandraAddress();
-        Integer cassandraPort = config.getCassandraPort();
+        Map<String, Object> extraConfig = config.any();
+        String cassandraAddress = (String) extraConfig.get("cassandraAddress");
+        Integer cassandraPort = (Integer) extraConfig.get("cassandraPort");
         Cluster cluster = Cluster.builder().withoutJMXReporting().withoutMetrics().addContactPoint(cassandraAddress)
                         .withPort(cassandraPort).build();
         cluster.getConfiguration().getCodecRegistry().register(iriCodec, datasetCodec, bigint(), InstantCodec.instance);

@@ -2,11 +2,11 @@ server:
   applicationConnectors:
     - type: http
       # Pick a random port (for testing)
-      port: 8080
+      port: ${trellis.port}
   adminConnectors:
     - type: http
       # Pick a random port (for testing)
-      port: 8081
+      port: ${trellis.admin.port}
 
 logging:
   level: WARN
@@ -16,13 +16,13 @@ logging:
     io.dropwizard: INFO
 
 # Path to binaries
-binaries: binaries
+binaries: ${project.build.directory}/binaries
 
 # Path to mementos
-mementos: mementos
+mementos: ${project.build.directory}/mementos
 
 # Path to namespace file
-namespaces: namespaces.json
+namespaces: ${project.build.directory}/namespaces.json
 
 auth:
     webac:
@@ -54,3 +54,5 @@ jsonld:
         - https://www.trellisldp.org/
     contextWhitelist: []
 
+cassandraAddress: localhost
+cassandraPort: ${cassandra.nativeTransportPort}
