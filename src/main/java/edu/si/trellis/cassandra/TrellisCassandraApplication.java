@@ -4,18 +4,19 @@ import static com.datastax.driver.core.TypeCodec.bigint;
 import static edu.si.trellis.cassandra.DatasetCodec.datasetCodec;
 import static edu.si.trellis.cassandra.IRICodec.iriCodec;
 
-import org.trellisldp.api.EventService;
-import org.trellisldp.api.IdentifierService;
-import org.trellisldp.api.MementoService;
-import org.trellisldp.api.NamespaceService;
-import org.trellisldp.api.ResourceService;
-import org.trellisldp.app.TrellisApplication;
-
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.extras.codecs.jdk8.InstantCodec;
 
 import java.util.Map;
+
+import org.trellisldp.api.EventService;
+import org.trellisldp.api.IdentifierService;
+import org.trellisldp.api.MementoService;
+import org.trellisldp.api.NamespaceService;
+import org.trellisldp.api.NoopNamespaceService;
+import org.trellisldp.api.ResourceService;
+import org.trellisldp.app.TrellisApplication;
 
 public class TrellisCassandraApplication extends TrellisApplication {
 
