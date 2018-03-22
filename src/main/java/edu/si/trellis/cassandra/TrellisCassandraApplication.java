@@ -7,6 +7,7 @@ import static edu.si.trellis.cassandra.IRICodec.iriCodec;
 import org.trellisldp.api.EventService;
 import org.trellisldp.api.IdentifierService;
 import org.trellisldp.api.MementoService;
+import org.trellisldp.api.NamespaceService;
 import org.trellisldp.api.ResourceService;
 import org.trellisldp.app.TrellisApplication;
 
@@ -29,6 +30,11 @@ public class TrellisCassandraApplication extends TrellisApplication {
         cluster.getConfiguration().getCodecRegistry().register(iriCodec, datasetCodec, bigint(), InstantCodec.instance);
         Session session = cluster.connect("Trellis");
         return (T) new CassandraResourceService(session);
+    }
+
+    @Override
+    protected NamespaceService buildNamespaceService() {
+        return new NoopNamespaceService();
     }
 
     /**
