@@ -1,0 +1,58 @@
+server:
+  applicationConnectors:
+    - type: http
+      # Pick a random port (for testing)
+      port: 8080
+  # adminConnectors:
+  #   - type: http
+  #     # Pick a random port (for testing)
+  #     port: ${TRELLIS_ADMIN_PORT}
+
+logging:
+  level: WARN
+  loggers:
+    edu.si: DEBUG
+    org.trellisldp: INFO
+    io.dropwizard: INFO
+
+# Path to binaries
+binaries: /opt/trellis/binaries
+
+# Path to mementos
+mementos: /opt/trellis/mementos
+
+# Path to namespace file
+namespaces: /opt/trellis/namespaces.json
+
+auth:
+    webac:
+        enabled: false
+    anon:
+        enabled: true
+    jwt:
+        enabled: true
+        base64Encoded: false
+        key: secret
+    basic:
+        enabled: true
+
+cors:
+    enabled: true
+    allowOrigin:
+        - "*"
+    maxAge: 180
+
+notifications:
+    enabled: true
+    type: NONE
+
+# JSON-LD configuration
+jsonld:
+    cacheSize: 10
+    cacheExpireHours: 48
+    contextDomainWhitelist:
+        - https://www.trellisldp.org/
+    contextWhitelist: []
+
+cassandraAddress: ${TRELLIS_CASSANDRA_ADDRESS}
+cassandraPort: ${TRELLIS_CASSANDRA_NATIVE_TRANSPORT_PORT}

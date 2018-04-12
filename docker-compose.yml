@@ -1,0 +1,33 @@
+version: "3"
+services:
+  trellis-cassandra:
+    image: 127.0.0.1:5000/trellis-cassandra
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - TRELLIS_CASSANDRA_ADDRESS="cassandra-1"
+    command: ["java", "-jar", "/opt/trellis/trellis.jar", "server", "/opt/trellis/config.yml"]
+  cassandra-1:
+    image: cassandra
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-1
+    volumes:
+      - /opt/cassandra1:/var/lib/cassandra
+    restart: on-failure
+  cassandra-2:
+    image: cassandra
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-2
+      CASSANDRA_SEEDS: cassandra-1
+    volumes:
+      - /opt/cassandra2:/var/lib/cassandra
+    restart: on-failure
+  cassandra-3:
+    image: cassandra
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-3
+      CASSANDRA_SEEDS: cassandra-1
+    volumes:
+      - /opt/cassandra3:/var/lib/cassandra
+    restart: on-failure
