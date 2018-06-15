@@ -56,3 +56,4 @@ jsonld:
 
 cassandraAddress: ${TRELLIS_CASSANDRA_ADDRESS}
 cassandraPort: ${TRELLIS_CASSANDRA_NATIVE_TRANSPORT_PORT}
+enableCassandraBinaryService: ${TRELLIS_ENABLE_CASSANDRA_BINARY_SERVICE}

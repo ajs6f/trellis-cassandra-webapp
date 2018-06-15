@@ -1,7 +1,7 @@
 version: "3"
 services:
   trellis-cassandra:
-    image: 127.0.0.1:5000/trellis-cassandra
+    image: drastic/prototype
     build: .
     ports:
       - "8080:80"
@@ -30,4 +30,11 @@ services:
       CASSANDRA_SEEDS: cassandra-1
     volumes:
       - /opt/cassandra3:/var/lib/cassandra
+  cassandra-4:
+    image: cassandra
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-4
+      CASSANDRA_SEEDS: cassandra-1
+    volumes:
+      - /opt/cassandra4:/var/lib/cassandra
     restart: on-failure
