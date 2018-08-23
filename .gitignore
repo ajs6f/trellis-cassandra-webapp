@@ -1,0 +1,8 @@
+binaries/
+dependency-reduced-pom.xml
+.classpath
+.project
+.settings
+target/
+.DS_Store
+/bin/
