@@ -106,7 +106,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.tamaya.ext</groupId>
-      <artifactId>tamaya-yaml</artifactId>
+      <artifactId>tamaya-json</artifactId>
       <version>${tamaya.version}</version>
     </dependency>
 
