@@ -33,7 +33,7 @@ import org.apache.tamaya.format.ConfigurationFormats;
 import org.apache.tamaya.inject.api.Config;
 import org.apache.tamaya.spi.ConfigurationContext;
 import org.apache.tamaya.spi.PropertySource;
-import org.apache.tamaya.yaml.YAMLFormat;
+import org.apache.tamaya.json.JSONFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +43,14 @@ public class CassandraSession implements Closeable {
     private Cluster cluster;
 
     private Session session;
+    
+    @Config
+    @Inject
+    private String cassandraHostAddy;
+    
+    @Config(required=false)
+    @Inject
+    private Integer cassandraPort;
 
     //@Inject
     //TamayaCDIInjectionExtension j;
@@ -70,6 +78,7 @@ public class CassandraSession implements Closeable {
         String cassandraAddress = "localhost";
         int port = Integer.getInteger("cassandra.nativeTransportPort");
         log.info("Using cassandra node address: {} and port: {}", cassandraAddress, port);
+        log.info("Foudn config'd cassandra node address: {} and port: {}", cassandraHostAddy, cassandraPort);
         
         this.cluster = Cluster.builder().withoutJMXReporting().withoutMetrics().addContactPoint(cassandraAddress)
                         .withPort(port).build();
