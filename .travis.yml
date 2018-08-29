@@ -1,0 +1,25 @@
+language: java
+group: edge
+
+addons:
+  sonarcloud:
+    organization: trellis-ldp
+
+matrix:
+  fast_finish: true
+
+  include:
+    # JDK 8
+    - jdk: oraclejdk8
+
+    # JDK 10
+    - jdk: openjdk10
+
+    # JDK 11
+    - jdk: oraclejdk11
+
+  allow_failures:
+    - jdk: oraclejdk11
+
+script: mvn clean install
+
