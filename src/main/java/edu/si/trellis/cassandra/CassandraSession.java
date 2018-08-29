@@ -77,8 +77,8 @@ public class CassandraSession implements Closeable {
         //System.getProperties().forEach((k,v)->log.debug("{} -> {}", k, v));
         String cassandraAddress = "localhost";
         int port = Integer.getInteger("cassandra.nativeTransportPort");
+        log.info("Found config'd cassandra node address: {} and port: {}", cassandraHostAddy, cassandraPort);
         log.info("Using cassandra node address: {} and port: {}", cassandraAddress, port);
-        log.info("Foudn config'd cassandra node address: {} and port: {}", cassandraHostAddy, cassandraPort);
         
         this.cluster = Cluster.builder().withoutJMXReporting().withoutMetrics().addContactPoint(cassandraAddress)
                         .withPort(port).build();

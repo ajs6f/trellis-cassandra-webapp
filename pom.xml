@@ -21,7 +21,6 @@
     <jersey.version>2.27</jersey.version>
     <weld.version>3.0.5.Final</weld.version>
     <owb.version>2.0.6</owb.version>
-    <meecrowave.version>1.2.3</meecrowave.version>
     <tamaya.version>0.3-incubating</tamaya.version>
   </properties>
 
@@ -112,33 +111,27 @@
 
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
-      <artifactId>jersey-container-servlet</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.inject</groupId>
-      <artifactId>jersey-hk2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.core</groupId>
-      <artifactId>jersey-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.ext.cdi</groupId>
-      <artifactId>jersey-cdi1x</artifactId>
+      <artifactId>jersey-container-servlet-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.ext.cdi</groupId>
       <artifactId>jersey-cdi1x-servlet</artifactId>
     </dependency>
-    <!-- <dependency> <groupId>org.apache.openwebbeans</groupId> <artifactId>openwebbeans-tomcat7</artifactId> <version>${owb.version}</version> 
-      </dependency> -->
-
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
       <artifactId>weld-servlet-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-web</artifactId>
