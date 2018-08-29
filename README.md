@@ -1,4 +1,4 @@
-A Trellis LDP application using Trellis-Cassandra for persistence.
+A TrellisLDP application using Trellis/Cassandra for persistence.
 
 To configure, add the location and port of a node in your Cassandra cluster to your Trellis configuration, e.g.
 
