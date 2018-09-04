@@ -2,7 +2,7 @@
 
   <jmxConfigurator />
   
-  <property name="log_dir" value="${project.build.directory}"/>
+  <property name="log_dir" value="${project.build.directory}/logs"/>
   
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>${log_dir}/system.log</file>
