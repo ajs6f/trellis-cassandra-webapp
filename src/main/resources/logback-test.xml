@@ -1,12 +1,13 @@
 <configuration scan="true">
 
-  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator" />
-
   <jmxConfigurator />
+
+  <property name="log_dir" value="${project.build.directory}" />
+
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>logs/system.log</file>
+    <file>${log_dir}/system.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-      <fileNamePattern>logs/system.log.%i.zip</fileNamePattern>
+      <fileNamePattern>${log_dir}/system.log.%i.zip</fileNamePattern>
       <minIndex>1</minIndex>
       <maxIndex>20</maxIndex>
     </rollingPolicy>
@@ -23,7 +24,9 @@
     <encoder>
       <pattern>%-5level %date{HH:mm:ss,SSS} %msg%n</pattern>
     </encoder>
-    <!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> <level>INFO</level> </filter> -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
   </appender>
 
   <root level="INFO">
@@ -32,21 +35,17 @@
   </root>
 
   <logger name="org.apache.cassandra" level="WARN" />
+  <logger name="com.thinkaurelius.thrift" level="ERROR" />
 
-  <logger name="org.apache.tamaya" level="TRACE" />
+  <logger name="org.apache.tamaya" level="INFO" />
 
   <logger name="com.datastax.driver.core.QueryLogger.NORMAL" level="INFO" />
   <logger name="com.datastax.driver.core.QueryLogger.ERROR" level="INFO" />
 
-  <logger name="org.jboss.weld" level="DEBUG" />
+  <logger name="org.jboss.weld" level="INFO" />
 
-  <logger name="org.glassfish.jersey" level="DEBUG" />
-  <logger name="org.glassfish.jersey.tracing" level="TRACE" />
-
-  <logger name="org.trellisldp" level="TRACE" />
+  <logger name="org.trellisldp" level="INFO" />
 
   <logger name="edu.si" level="DEBUG" />
 
-
-  <logger name="com.thinkaurelius.thrift" level="ERROR" />
 </configuration>

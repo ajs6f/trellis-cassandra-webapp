@@ -1,12 +1,13 @@
 <configuration scan="true">
 
-  <!-- This log configuration is present exclusively to support Cassandra during integration tests. -->
-
   <jmxConfigurator />
+  
+  <property name="log_dir" value="${project.build.directory}"/>
+  
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>logs/system.log</file>
+    <file>${log_dir}/system.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-      <fileNamePattern>logs/system.log.%i.zip</fileNamePattern>
+      <fileNamePattern>${log_dir}/system.log.%i.zip</fileNamePattern>
       <minIndex>1</minIndex>
       <maxIndex>20</maxIndex>
     </rollingPolicy>
