@@ -1,5 +1,7 @@
 A TrellisLDP application using Trellis/Cassandra for persistence.
 
+`mvn clean install` to build, see Maven profiles in `pom.xml` for packaging options.
+
 To configure, add the location and port of a node in your Cassandra cluster to your Trellis configuration, e.g.
 
 ```

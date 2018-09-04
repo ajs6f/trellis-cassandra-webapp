@@ -324,8 +324,6 @@
               <goal>package</goal>
             </goals>
           </execution>
-          <!-- <execution> <id>hollow-package</id> <goals> <goal>package</goal> </goals> <configuration> <hollow>true</hollow> 
-            </configuration> </execution> -->
           <execution>
             <id>start</id>
             <phase>pre-integration-test</phase>
@@ -358,5 +356,32 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>hollow-jar</id>
+      <!-- see http://docs.wildfly-swarm.io/2.1.0.Final/#hollow-jar_thorntail -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.thorntail</groupId>
+            <artifactId>thorntail-maven-plugin</artifactId>
+            <version>${thorntail.version}</version>
+            <executions>
+              <execution>
+                <id>hollow-package</id>
+                <goals>
+                  <goal>package</goal>
+                </goals>
+                <configuration>
+                  <hollow>true</hollow>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
