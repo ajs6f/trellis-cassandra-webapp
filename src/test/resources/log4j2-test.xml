@@ -4,19 +4,8 @@
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
     </Console>
-    <!-- <Servlet name="Servlet">
-      <PatternLayout pattern="%m%n%ex{none}" />
-    </Servlet> -->
   </Appenders>
   <Loggers>
-    <Logger name="org.apache.cassandra" level="ERROR" />
-    <Logger name="com.datastax.driver.core.QueryLogger.NORMAL" level="INFO" />
-    <Logger name="com.datastax.driver.core.QueryLogger.ERROR" level="INFO" />
-    <!-- org.jboss.weld.Bootstrap.level = FINEST org.jboss.weld.Version.level = FINEST org.jboss.weld.Utilities.level = FINEST 
-      org.jboss.weld.Bean.level = FINEST org.jboss.weld.Servlet.level = FINEST org.jboss.weld.Reflection.level = FINEST org.jboss.weld.JSF.level 
-      = FINEST org.jboss.weld.Event.level = FINEST org.jboss.weld.Conversation.level = FINEST org.jboss.weld.Context.level = FINEST 
-      org.jboss.weld.El.level = FINEST org.jboss.weld.ClassLoading.level = FINEST -->
-    <Logger name="org.jboss.weld" level="DEBUG" />
     <Logger name="edu.si" level="DEBUG" />
     <Root level="INFO">
       <AppenderRef ref="Console" />

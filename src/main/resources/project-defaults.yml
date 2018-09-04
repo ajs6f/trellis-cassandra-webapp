@@ -1,0 +1,11 @@
+swarm:
+  http:
+    port: ${trellis.port}
+  logging:
+    loggers:      
+      org.jboss:
+        level: ERROR
+      org.wildfly:
+        level: ERROR
+      org.jboss.weld:
+        level: INFO
