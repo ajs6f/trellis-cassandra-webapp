@@ -19,7 +19,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.apache.tamaya.inject.api.Config;
-import org.apache.tamaya.inject.api.ConfigDefaultSections;
 import org.slf4j.Logger;
 
 @ApplicationScoped
@@ -38,15 +37,14 @@ public class CassandraSession implements Closeable {
     private String contactAddress;
 
     private static final Logger log = getLogger(CassandraSession.class);
-    
+
     @PostConstruct
     public void connect() {
         log.info("Using Cassandra node address: {} and port: {}", contactAddress, contactPort);
         this.cluster = Cluster.builder().withoutJMXReporting().withoutMetrics().addContactPoint(contactAddress)
                         .withPort(parseInt(contactPort)).build();
         // this.cluster.register(QueryLogger.builder().build());
-        this.cluster.getConfiguration().getCodecRegistry().register(iriCodec, datasetCodec, bigint(),
-                        InstantCodec.instance);
+        cluster.getConfiguration().getCodecRegistry().register(iriCodec, datasetCodec, bigint(), InstantCodec.instance);
         this.session = cluster.connect("Trellis");
     }
 

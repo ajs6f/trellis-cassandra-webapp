@@ -22,8 +22,8 @@
     <jersey.version>2.27</jersey.version>
     <weld.version>3.0.5.Final</weld.version>
     <jandex.version>2.0.5.Final</jandex.version>
+    <!-- <tamaya.version>0.4-incubating-SNAPSHOT</tamaya.version> -->
     <tamaya.version>0.3-incubating</tamaya.version>
-
     <log4j.version>2.7</log4j.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
@@ -31,9 +31,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- <dependency> <groupId>org.glassfish.jersey</groupId> <artifactId>jersey-bom</artifactId> <version>${jersey.version}</version> 
-        <type>pom</type> <scope>import</scope> </dependency> <dependency> <groupId>org.jboss.weld</groupId> <artifactId>weld-core-bom</artifactId> 
-        <version>${weld.version}</version> <type>pom</type> <scope>import</scope> </dependency> -->
       <dependency>
         <groupId>io.thorntail</groupId>
         <artifactId>bom</artifactId>
@@ -43,6 +40,17 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repository.apache.org/content/groups/public</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -125,12 +133,21 @@
       <artifactId>tamaya-cdi</artifactId>
       <version>${tamaya.version}</version>
     </dependency>
+    <!-- <dependency> -->
+    <!-- <groupId>org.apache.tamaya.ext</groupId> -->
+    <!-- <artifactId>tamaya-collections</artifactId> -->
+    <!-- <version>${tamaya.version}</version> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.apache.tamaya.ext</groupId> -->
+    <!-- <artifactId>tamaya-json</artifactId> -->
+    <!-- <version>${tamaya.version}</version> -->
+    <!-- </dependency> -->
 
     <dependency>
       <groupId>io.thorntail</groupId>
       <artifactId>logging</artifactId>
       <scope>provided</scope>
-      <!-- <exclusions> <exclusion> <groupId>org.ow2.asm</groupId> <artifactId>asm</artifactId> </exclusion> </exclusions> -->
     </dependency>
 
     <dependency>
@@ -140,11 +157,6 @@
     </dependency>
 
 
-    <!-- <dependency> <groupId>org.glassfish.jersey.containers</groupId> <artifactId>jersey-container-servlet-core</artifactId> 
-      </dependency> <dependency> <groupId>org.glassfish.jersey.ext.cdi</groupId> <artifactId>jersey-cdi1x-servlet</artifactId> 
-      </dependency> <dependency> <groupId>org.glassfish.jersey.inject</groupId> <artifactId>jersey-hk2</artifactId> </dependency> -->
-    <!-- <dependency> <groupId>org.glassfish.jersey.ext.cdi</groupId> <artifactId>jersey-weld2-se</artifactId> </dependency> -->
-    <!-- <dependency> <groupId>org.jboss.weld.servlet</groupId> <artifactId>weld-servlet-core</artifactId> </dependency> -->
     <dependency>
       <groupId>org.jboss</groupId>
       <artifactId>jandex</artifactId>
@@ -164,8 +176,8 @@
     </dependency>
 
     <!-- test gear -->
-    <!-- <dependency> <groupId>org.trellisldp</groupId> <artifactId>trellis-test</artifactId> <version>${trellis.version}</version> 
-      <scope>test</scope> <exclusions> <exclusion> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> </exclusion> 
+    <!-- <dependency> <groupId>org.trellisldp</groupId> <artifactId>trellis-test</artifactId> <version>${trellis.version}</version>
+      <scope>test</scope> <exclusions> <exclusion> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> </exclusion>
       </exclusions> </dependency> -->
     <dependency>
       <groupId>io.thorntail</groupId>
@@ -182,6 +194,7 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>5.2.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -300,15 +313,19 @@
           </dependency>
         </dependencies>
       </plugin>
-      <!-- <plugin> <groupId>org.codehaus.cargo</groupId> <artifactId>cargo-maven2-plugin</artifactId> <version>1.6.9</version> 
-        <configuration> <container> <containerId>wildfly-swarm2017x</containerId> <type>installed</type> <home>${project.build.directory}/${project.artifactId}-${project.version}-thorntail.jar</home> 
-        <systemProperties> <cassandra.nativeTransportPort>${cassandra.nativeTransportPort}</cassandra.nativeTransportPort> <project.build.directory>${project.build.directory}</project.build.directory> 
-        <trellis.port>${trellis.port}</trellis.port> <swarm.logging>DEBUG</swarm.logging> </systemProperties> </container> <configuration> 
-        <type>standalone</type> <properties> <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding> <cargo.jvmargs>-Xmx1024m</cargo.jvmargs> 
-        <cargo.logging>low</cargo.logging> <cargo.servlet.port>${trellis.port}</cargo.servlet.port> <cargo.swarm.project.name>${project.name}</cargo.swarm.project.name> 
-        <cargo.swarm.ping.url>http://localhost:${trellis.port}</cargo.swarm.ping.url> </properties> </configuration> </configuration> 
-        <executions> <execution> <id>start-server</id> <goals> <goal>start</goal> </goals> <phase>pre-integration-test</phase> </execution> 
-        <execution> <id>stop-server</id> <goals> <goal>stop</goal> </goals> <phase>post-integration-test</phase> </execution> </executions> 
+      <!-- <plugin> <groupId>org.codehaus.cargo</groupId> <artifactId>cargo-maven2-plugin</artifactId> <version>1.6.9</version>
+        <configuration> <container> <containerId>wildfly-swarm2017x</containerId> <type>installed</type> <home>${project.build.directory}/${project.artifactId}-${project.version}-thorntail.jar</home>
+        <systemProperties> <cassandra.nativeTransportPort>${cassandra.nativeTransportPort}</cassandra.nativeTransportPort>
+        <project.build.directory>${project.build.directory}</project.build.directory>
+        <trellis.port>${trellis.port}</trellis.port> <swarm.logging>DEBUG</swarm.logging> </systemProperties> </container>
+        <configuration>
+        <type>standalone</type> <properties> <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding> <cargo.jvmargs>-Xmx1024m</cargo.jvmargs>
+        <cargo.logging>low</cargo.logging> <cargo.servlet.port>${trellis.port}</cargo.servlet.port> <cargo.swarm.project.name>${project.name}</cargo.swarm.project.name>
+        <cargo.swarm.ping.url>http://localhost:${trellis.port}</cargo.swarm.ping.url> </properties> </configuration> </configuration>
+        <executions> <execution> <id>start-server</id> <goals> <goal>start</goal> </goals> <phase>pre-integration-test</phase>
+        </execution>
+        <execution> <id>stop-server</id> <goals> <goal>stop</goal> </goals> <phase>post-integration-test</phase> </execution>
+        </executions>
         </plugin> -->
       <plugin>
         <groupId>io.thorntail</groupId>
@@ -333,8 +350,12 @@
             <configuration>
               <properties>
                 <swarm.http.port>${trellis.port}</swarm.http.port>
+                <!-- <org.jboss.logging.provider>slf4j</org.jboss.logging.provider> -->
                 <contactPort>${cassandra.nativeTransportPort}</contactPort>
                 <contactAddress>localhost</contactAddress>
+                <noCache>true</noCache>
+                <revalidate>true</revalidate>
+                <cacheAge>10000</cacheAge>
               </properties>
             </configuration>
           </execution>
