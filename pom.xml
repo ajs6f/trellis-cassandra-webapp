@@ -55,7 +55,7 @@
   <dependencies>
     <dependency>
       <groupId>edu.si</groupId>
-      <artifactId>trellis-cassandra</artifactId>
+      <artifactId>trellis-cassandra-impl</artifactId>
       <version>${project.version}</version>
       <exclusions>
         <exclusion>

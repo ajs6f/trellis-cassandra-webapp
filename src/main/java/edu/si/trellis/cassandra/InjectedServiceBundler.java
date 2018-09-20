@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.trellisldp.api.AgentService;
 import org.trellisldp.api.AuditService;
 import org.trellisldp.api.BinaryService;
+import org.trellisldp.api.EventService;
 import org.trellisldp.api.IOService;
 import org.trellisldp.api.MementoService;
 import org.trellisldp.api.NamespaceService;
@@ -14,6 +15,10 @@ import org.trellisldp.api.ResourceService;
 import org.trellisldp.api.ServiceBundler;
 import org.trellisldp.io.JenaIOService;
 
+/**
+ * Use to supply injected components for a Trellis application.
+ *
+ */
 @ApplicationScoped
 public class InjectedServiceBundler implements ServiceBundler {
 
@@ -38,6 +43,9 @@ public class InjectedServiceBundler implements ServiceBundler {
     @Produces
     @ApplicationScoped
     private final IOService ioService = new JenaIOService(namespaceService, null, null, "", "");
+
+    @Inject
+    private EventService eventService;
 
     @Override
     public AgentService getAgentService() {
@@ -67,5 +75,10 @@ public class InjectedServiceBundler implements ServiceBundler {
     @Override
     public MementoService getMementoService() {
         return mementoService;
+    }
+
+    @Override
+    public EventService getEventService() {
+        return eventService;
     }
 }

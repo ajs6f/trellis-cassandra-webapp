@@ -12,7 +12,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import org.slf4j.Logger;
-import org.trellisldp.http.LdpResource;
+import org.trellisldp.http.TrellisHttpResource;
 
 /**
  * Basic JAX-RS {@link Application} to deploy Trellis with a Cassandra persistence implementation.
@@ -29,6 +29,6 @@ public class CassandraApplication extends Application {
 
     @Override
     public Set<Object> getSingletons() {
-        return ImmutableSet.of(new LdpResource(services));
+        return ImmutableSet.of(new TrellisHttpResource(services));
     }
 }
