@@ -1,3 +1,5 @@
+### ARCHIVED permanently, see [Trellis]([url](https://www.trellisldp.org/)) for further info.
+
 A TrellisLDP application using Trellis/Cassandra for persistence.
 
 `mvn clean install` to build, see Maven profiles in `pom.xml` for packaging options.
